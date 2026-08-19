@@ -1,0 +1,5 @@
+owner: roock
+git-repo: helm-charts
+charts-dir: charts
+pages-branch: gh-pages
+pages-index-path: .
