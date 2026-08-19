@@ -41,10 +41,17 @@ spec:
               containerPort: 3000
               protocol: TCP
           env:
+            {{- if .Values.postgresql.enabled }}
+            - name: POSTGRES_PRISMA_URL
+              value: "postgresql://{{ .Values.postgresql.auth.username }}:{{ .Values.postgresql.auth.password }}@{{ include "spliit.fullname" . }}-postgresql:5432/{{ .Values.postgresql.auth.database }}"
+            - name: POSTGRES_URL_NON_POOLING
+              value: "postgresql://{{ .Values.postgresql.auth.username }}:{{ .Values.postgresql.auth.password }}@{{ include "spliit.fullname" . }}-postgresql:5432/{{ .Values.postgresql.auth.database }}"
+            {{- else }}
             - name: POSTGRES_PRISMA_URL
               value: "postgresql://{{ .Values.postgres.user }}:{{ .Values.postgres.password }}@{{ .Values.postgres.host }}:{{ .Values.postgres.port }}/{{ .Values.postgres.database }}"
             - name: POSTGRES_URL_NON_POOLING
               value: "postgresql://{{ .Values.postgres.user }}:{{ .Values.postgres.password }}@{{ .Values.postgres.host }}:{{ .Values.postgres.port }}/{{ .Values.postgres.database }}"
+            {{- end }}
             {{- if .Values.config.baseUrl }}
             - name: BASE_URL
               value: {{ .Values.config.baseUrl | quote }}

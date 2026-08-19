@@ -59,6 +59,13 @@ postgres:
   user: spliit
   password: ""
 
+postgresql:
+  enabled: false
+  auth:
+    database: spliit
+    username: spliit
+    password: ""
+
 config:
   baseUrl: ""
   defaultCurrencyCode: USD

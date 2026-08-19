@@ -14,3 +14,20 @@
   echo "Visit http://127.0.0.1:8080 to use your application"
   kubectl --namespace {{ .Release.Namespace }} port-forward $POD_NAME 8080:$CONTAINER_PORT
 {{- end }}
+
+{{- if .Values.postgresql.enabled }}
+
+2. PostgreSQL is deployed as a subchart. To connect to the database directly:
+  kubectl run {{ include "spliit.fullname" . }}-postgresql-client --rm --tty -i --restart='Never' \
+    --namespace {{ .Release.Namespace }} \
+    --image docker.io/bitnami/postgresql:latest \
+    --env="PGPASSWORD={{ .Values.postgresql.auth.password }}" \
+    --command -- psql --host {{ include "spliit.fullname" . }}-postgresql \
+      -U {{ .Values.postgresql.auth.username }} \
+      -d {{ .Values.postgresql.auth.database }} \
+      -p 5432
+{{- else }}
+
+2. Make sure an external PostgreSQL instance is reachable at:
+  {{ .Values.postgres.host }}:{{ .Values.postgres.port }}/{{ .Values.postgres.database }}
+{{- end }}
