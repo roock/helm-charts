@@ -1,0 +1,19 @@
+apiVersion: v1
+entries:
+  spliit:
+  - apiVersion: v2
+    appVersion: latest
+    created: "2026-09-11T17:39:01.98854484Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: oci://registry-1.docker.io/bitnamicharts
+      version: 18.x.x
+    description: A Helm chart for deploying the Spliit app
+    digest: 9e3a0f711c83ea051330a5e5e4c043a54c1ea2af564e8b6be8537055817e7d10
+    name: spliit
+    type: application
+    urls:
+    - https://github.com/roock/helm-charts/releases/download/spliit-0.1.0/spliit-0.1.0.tgz
+    version: 0.1.0
+generated: "2026-09-11T17:39:01.988552261Z"
